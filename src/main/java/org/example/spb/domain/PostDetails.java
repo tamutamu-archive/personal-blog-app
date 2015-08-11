@@ -1,13 +1,15 @@
 package org.example.spb.domain;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 public class PostDetails extends AbstractEntity {
 	@Column
 	private String postDetails;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "postDetails")
+	@JoinColumn(name = "POST_DETAILS_ID")
 	private Post post;
 
 	public String getPostDetails() {

@@ -2,6 +2,7 @@ package org.example.spb.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,6 +16,7 @@ public class Post extends AbstractEntity {
 	private String preview;
 	
 	@OneToOne
+	@JoinColumn(name = "POST_DETAILS_ID")
 	private PostDetails postDetails;
 	
 	public Post() {}
