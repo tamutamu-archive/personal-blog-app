@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "USERS")
@@ -29,7 +31,8 @@ public class User extends AbstractEntity {
 	@Column
 	private boolean enabled;
 	
-	@Column(name = "registration_date")
+	@Column(name = "registration_date", columnDefinition = "DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date registrationDate;
 	
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

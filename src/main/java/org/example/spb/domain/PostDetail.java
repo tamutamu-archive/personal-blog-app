@@ -11,18 +11,24 @@ import javax.persistence.Table;
 @Table(name = "Post_Details")
 public class PostDetail extends AbstractEntity {
 	@Column(name = "post_details")
-	private String postDetails;
+	private String postDetail;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private Post post;
+	
+	public PostDetail() {}
+	
+	public PostDetail(String postDetail) {
+		this.postDetail = postDetail;
+	}
 
 	public String getPostDetails() {
-		return postDetails;
+		return postDetail;
 	}
 
 	public void setPostDetails(String postDetails) {
-		this.postDetails = postDetails;
+		this.postDetail = postDetails;
 	}
 
 	public Post getPost() {

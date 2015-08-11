@@ -1,7 +1,7 @@
 CREATE TABLE Posts (
 	id int(11) auto_increment not null,
 	title varchar(40) not null,
-	preview varchar(4000) not null,
+	preview varchar(400) not null,
 	date datetime not null,
 	primary key(id)
 ) ENGINE=InnoDB;

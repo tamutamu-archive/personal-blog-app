@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "COMMENTS")
@@ -15,7 +17,8 @@ public class Comment extends AbstractEntity {
 	@Column
 	private String comment;
 	
-	@Column
+	@Column(columnDefinition = "DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

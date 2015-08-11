@@ -1,5 +1,6 @@
 package org.example.spb.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "POSTS")
@@ -21,7 +24,8 @@ public class Post extends AbstractEntity {
 	@Column
 	private String preview;
 	
-	@Column
+	@Column(columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
 	@OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -31,6 +35,13 @@ public class Post extends AbstractEntity {
 	private Set<Comment> comments = new HashSet<>();
 	
 	public Post() {}
+	
+	public Post(String title, String preview, PostDetail postDetail) {
+		this.title = title;
+		this.preview = preview;
+		this.date = new Date();
+		setPostDetail(postDetail);
+	}
 	
 	public void addComment(Comment comment) {
 		comments.add(comment);
@@ -70,8 +81,9 @@ public class Post extends AbstractEntity {
 		this.comments = comments;
 	}
 	
-	public Date getDate() {
-		return date;
+	public String getDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy HH:mm");
+		return dateFormat.format(date);
 	}
 
 	public void setDate(Date date) {
