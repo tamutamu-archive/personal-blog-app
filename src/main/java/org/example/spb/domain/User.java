@@ -17,10 +17,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USERS")
 public class User extends AbstractEntity {
-	@Column
+	@Column(name = "first_name")
 	private String firstName;
 	
-	@Column
+	@Column(name = "last_name")
 	private String lastName;
 	
 	@Column
@@ -29,10 +29,10 @@ public class User extends AbstractEntity {
 	@Column
 	private boolean enabled;
 	
-	@Column
+	@Column(name = "registration_date")
 	private Date registrationDate;
 	
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> comments = new HashSet<>();
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -42,6 +42,16 @@ public class User extends AbstractEntity {
 			inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
 	)
 	private Set<Role> roles = new HashSet<>();
+	
+	public void addComment(Comment comment) {
+		comments.add(comment);
+		comment.setAuthor(this);
+	}
+	
+	public void addRole(Role role) {
+		roles.add(role);
+		role.getUsers().add(this);
+	}
 	
 	public User() {}
 	

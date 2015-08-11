@@ -1,8 +1,13 @@
 package org.example.spb.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,11 +20,18 @@ public class Post extends AbstractEntity {
 	@Column
 	private String preview;
 	
-	@OneToOne
-	@JoinColumn(name = "POST_DETAILS_ID")
-	private PostDetails postDetails;
+	@OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private PostDetail postDetail;
+	
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Comment> comments = new HashSet<>();
 	
 	public Post() {}
+	
+	public void addComment(Comment comment) {
+		comments.add(comment);
+		comment.setPost(this);
+	}
 
 	public String getTitle() {
 		return title;
@@ -37,11 +49,20 @@ public class Post extends AbstractEntity {
 		this.preview = preview;
 	}
 
-	public PostDetails getPostDetails() {
-		return postDetails;
+	public PostDetail getPostDetail() {
+		return postDetail;
 	}
 
-	public void setPostDetails(PostDetails postDetails) {
-		this.postDetails = postDetails;
+	public void setPostDetail(PostDetail postDetail) {
+		this.postDetail = postDetail;
+		postDetail.setPost(this);
+	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
 	}
 }
