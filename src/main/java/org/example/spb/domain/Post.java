@@ -1,5 +1,6 @@
 package org.example.spb.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,9 @@ public class Post extends AbstractEntity {
 	@Column
 	private String preview;
 	
+	@Column
+	private Date date;
+
 	@OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private PostDetail postDetail;
 	
@@ -64,5 +68,13 @@ public class Post extends AbstractEntity {
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }
