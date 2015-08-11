@@ -5,14 +5,11 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Transactional
 @Repository
 @SuppressWarnings("unchecked")
 public abstract class HibernateDAO<E, K extends Serializable> implements DAO<E, K> {
