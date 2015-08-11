@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	        
+	<import resource="classpath:data-source.xml"/>
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:annotation-config></context:annotation-config>
+	
+	<context:component-scan base-package="org.example.spb"></context:component-scan>
+	
+	<tx:annotation-driven/>
+	
+	<util:properties id="hibernateProperties">
+		<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+		<prop key="hibernate.show_sql">true</prop>
+		<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+	</util:properties>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:packagesToScan="org.example.spb.domain"
+		p:hibernateProperties-ref="hibernateProperties"/>
 		
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory"/>
+	        
 </beans>
