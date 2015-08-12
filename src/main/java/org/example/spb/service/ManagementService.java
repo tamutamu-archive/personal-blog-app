@@ -8,7 +8,7 @@ import org.example.spb.dao.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Transactional
-public abstract class ManagementService<DTO, K extends Serializable, E> implements CommonService<DTO, K> {
+public abstract class ManagementService<DTO, K extends Serializable, DAO> implements CommonService<DTO, K> {
 	@Autowired
-	protected DAO<E, K> dao;
+	protected DAO dao;
 }

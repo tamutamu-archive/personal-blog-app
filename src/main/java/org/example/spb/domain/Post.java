@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.example.spb.dto.PostDto;
+
 @Entity
 @Table(name = "POSTS")
 public class Post extends AbstractEntity {
@@ -36,11 +38,11 @@ public class Post extends AbstractEntity {
 	
 	public Post() {}
 	
-	public Post(String title, String preview, PostDetail postDetail) {
-		this.title = title;
-		this.preview = preview;
-		this.date = new Date();
-		setPostDetail(postDetail);
+	public Post(PostDto dto) {
+		title = dto.getTitle();
+		preview = dto.getPreview();
+		date = new Date();
+		setPostDetail(new PostDetail(dto.getBody()));
 	}
 	
 	public void addComment(Comment comment) {

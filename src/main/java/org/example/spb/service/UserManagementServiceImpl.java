@@ -2,7 +2,7 @@ package org.example.spb.service;
 
 import java.util.List;
 
-import org.example.spb.domain.User;
+import org.example.spb.dao.UserDAO;
 import org.example.spb.dto.UserDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserManagementServiceImpl extends ManagementService<UserDto, Integer, User>
+public class UserManagementServiceImpl extends ManagementService<UserDto, Integer, UserDAO>
 		implements UserManagementService, UserDetailsService {
 
 	@Override
@@ -26,7 +26,7 @@ public class UserManagementServiceImpl extends ManagementService<UserDto, Intege
 	}
 
 	@Override
-	public List<UserDto> getList() {
+	public List<UserDto> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

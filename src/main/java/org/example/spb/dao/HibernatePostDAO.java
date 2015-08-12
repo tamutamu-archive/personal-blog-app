@@ -13,10 +13,10 @@ public class HibernatePostDAO extends HibernateDAO<Post, Integer>implements Post
 	@Override
 	public List<Post> findRange(Integer offset) {
 		Query query = session().
-				createSQLQuery("SELECT * FROM Posts  ORDER BY DATE DESC LIMIT :offset, :range").
+				createSQLQuery("SELECT * FROM Posts  ORDER BY DATE DESC LIMIT ?,?").
 					addEntity(type);
-		query.setParameter(":offset", offset);
-		query.setParameter(":range", 20);
+		query.setParameter(0, offset);
+		query.setParameter(1, 20);
 		return query.list();
 	}
 }

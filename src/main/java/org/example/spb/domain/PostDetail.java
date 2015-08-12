@@ -38,4 +38,9 @@ public class PostDetail extends AbstractEntity {
 	public void setPost(Post post) {
 		this.post = post;
 	}
+	
+	@Override
+	public String toString() {
+		return getPostDetails();
+	}
 }

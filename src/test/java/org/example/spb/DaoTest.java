@@ -33,13 +33,16 @@ public class DaoTest extends AbstractDaoTest{
 		try {
 			PostDto dto = new PostDto("Lorem Ipsum", readFile("src/test/resources/SamplePost.txt"));
 			Integer id = postService.create(dto);
-			postService.create(dto);
-			
+			//postService.create(dto);
+			//Integer size = postService.getList().size();
+			Integer size = postService.getRange(0).size();
+			print(size.toString());
 			Post post = postDAO.findById(id);
 			print(post.getTitle());
 			print(post.getPreview());
 			print(post.getPostDetail().getPostDetails());
 			print(post.getDate());
+
 		} catch (IOException e) {
 			print(e.getMessage());
 		}

@@ -1,43 +1,53 @@
 package org.example.spb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.example.spb.dao.PostDAO;
 import org.example.spb.domain.Post;
 import org.example.spb.domain.PostDetail;
 import org.example.spb.dto.PostDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PostManagementServiceImpl extends ManagementService<PostDto, Integer, Post> implements PostManagementService {
+public class PostManagementServiceImpl extends ManagementService<PostDto, Integer, PostDAO> implements PostManagementService {
 
 	@Override
 	public Integer create(PostDto dto) {
-		Post post = new Post(dto.getTitle(), dto.getPreview(), new PostDetail(dto.getBody()));
-		return dao.create(post);
+		return dao.create(new Post(dto));
 	}
 
 	@Override
 	public PostDto getOne(Integer key) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostDto(dao.findById(key));
 	}
 
+	
 	@Override
-	public List<PostDto> getList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostDto> getAll() {
+		List<PostDto> result = new ArrayList<>();
+		for (Post post : dao.findAll()) {
+			result.add(new PostDto(post));
+		}
+		return result;
+	}
+	
+	@Override
+	public List<PostDto> getRange(Integer start) {
+		List<PostDto> result = new ArrayList<>();
+		for (Post post : dao.findRange(start)) {
+			result.add(new PostDto(post));
+		}
+		return result;
 	}
 
 	@Override
 	public Integer update(PostDto dto) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void delete(Integer key) {
-		// TODO Auto-generated method stub
-
+		dao.delete(key);
 	}
-
 }
