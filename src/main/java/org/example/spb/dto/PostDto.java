@@ -1,7 +1,14 @@
 package org.example.spb.dto;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class PostDto {
+	@Size(max = 50)
+	@NotEmpty
 	private String title;
+	
 	private String body;
 	
 	public PostDto() {}

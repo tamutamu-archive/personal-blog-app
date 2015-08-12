@@ -1,5 +1,6 @@
 package org.example.spb.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.example.spb.dto.CommentDto;
 
 @Entity
 @Table(name = "COMMENTS")
@@ -31,6 +34,10 @@ public class Comment extends AbstractEntity {
 	
 	public Comment() {}
 	
+	public Comment(CommentDto dto) {
+		
+	}
+	
 
 	public String getComment() {
 		return comment;
@@ -48,8 +55,9 @@ public class Comment extends AbstractEntity {
 		this.author = author;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy HH:mm");
+		return dateFormat.format(date);
 	}
 
 	public void setDate(Date postDate) {

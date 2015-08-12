@@ -10,9 +10,13 @@ import org.example.spb.dao.PostDAO;
 import org.example.spb.dao.PostDetailDAO;
 import org.example.spb.domain.Post;
 import org.example.spb.domain.PostDetail;
+import org.example.spb.domain.User;
 import org.example.spb.dto.PostDto;
+import org.example.spb.service.PostManagementService;
+import org.example.spb.service.PostManagementServiceImpl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class DaoTest extends AbstractDaoTest{
 	@Autowired
@@ -21,13 +25,17 @@ public class DaoTest extends AbstractDaoTest{
 	@Autowired
 	private PostDetailDAO postDetailDAO;
 	
+	@Autowired
+	private PostManagementService postService;
+	
 	@Test
 	public void postDaoTest() {		
 		try {
 			PostDto dto = new PostDto("Lorem Ipsum", readFile("src/test/resources/SamplePost.txt"));
-			Integer id = createPost(dto);
-			Post post = postDAO.findById(id);
+			Integer id = postService.create(dto);
+			postService.create(dto);
 			
+			Post post = postDAO.findById(id);
 			print(post.getTitle());
 			print(post.getPreview());
 			print(post.getPostDetail().getPostDetails());
@@ -35,15 +43,6 @@ public class DaoTest extends AbstractDaoTest{
 		} catch (IOException e) {
 			print(e.getMessage());
 		}
-	}
-	
-	public Integer createPost(PostDto dto) {
-		//validate data
-		//TODO
-		//write generic validator 
-		//then extend it to build specific validators for each entity type
-		Post post = new Post(dto.getTitle(), dto.getPreview(), new PostDetail(dto.getBody()));
-		return postDAO.create(post);
 	}
 	
 	private String readFile(String fileName) throws IOException {
@@ -54,7 +53,6 @@ public class DaoTest extends AbstractDaoTest{
 			
 			while (line != null) {
 				sb.append(line);
-				sb.append("\n");
 				line = br.readLine();
 			}
 			return sb.toString();

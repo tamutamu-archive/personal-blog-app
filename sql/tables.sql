@@ -1,6 +1,6 @@
 CREATE TABLE Posts (
 	id int(11) auto_increment not null,
-	title varchar(40) not null,
+	title varchar(50) not null,
 	preview varchar(400) not null,
 	date datetime not null,
 	primary key(id)
@@ -29,6 +29,7 @@ CREATE TABLE Users (
 	fist_name varchar(40) not null,
 	last_name varchar(40) not null,
 	email varchar(320) not null,
+	password varchar(50) not null,
 	enabled tinyint(1) not null,
 	registration_date datetime not null,
 	primary key(id)
