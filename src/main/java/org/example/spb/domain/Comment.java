@@ -35,7 +35,8 @@ public class Comment extends AbstractEntity {
 	public Comment() {}
 	
 	public Comment(CommentDto dto) {
-		
+		comment = dto.getComment();
+		date = new Date();
 	}
 	
 
@@ -67,7 +68,6 @@ public class Comment extends AbstractEntity {
 	public Post getPost() {
 		return post;
 	}
-
 
 	public void setPost(Post post) {
 		this.post = post;

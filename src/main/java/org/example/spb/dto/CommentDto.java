@@ -6,6 +6,9 @@ import org.example.spb.domain.Comment;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class CommentDto {
+	
+	private Integer id;
+	
 	@Size(max = 4000)
 	@NotEmpty
 	private String comment;
@@ -17,12 +20,21 @@ public class CommentDto {
 	public CommentDto() {}
 	
 	public CommentDto(Comment comment) {
+		id = comment.getId();
 		this.comment = comment.getComment();
 		author = comment.getAuthor().getFirstName() + " " + comment.getAuthor().getLastName();
 		date = comment.getDate();
 	}
 
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getComment() {
 		return comment;
 	}

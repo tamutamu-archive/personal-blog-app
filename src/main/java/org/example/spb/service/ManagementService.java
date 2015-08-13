@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import javax.transaction.Transactional;
 
-import org.example.spb.dao.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Transactional
-public abstract class ManagementService<DTO, K extends Serializable, DAO> implements CommonService<DTO, K> {
+public abstract class ManagementService<DTO, K extends Serializable, mainDAO, auxDAO> implements CommonService<DTO, K> {
 	@Autowired
-	protected DAO dao;
+	protected mainDAO mainDao;
+	
+	@Autowired
+	protected auxDAO auxDao;
 }

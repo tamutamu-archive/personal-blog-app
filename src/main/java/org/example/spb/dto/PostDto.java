@@ -9,7 +9,10 @@ import org.example.spb.domain.Comment;
 import org.example.spb.domain.Post;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class PostDto {	
+public class PostDto {
+	
+	private Integer id;
+	
 	@Size(max = 50)
 	@NotEmpty
 	private String title;
@@ -28,20 +31,37 @@ public class PostDto {
 		this.body = body;
 	}
 	
+	//request constructor for /update URL
+	public PostDto(Integer id, String title, String body) {
+		this.id = id;
+		this.title = title;
+		this.body = body;
+	}
+	
 	//response constructor for /list request
-	public PostDto(String title, String preview, String date) {
+	public PostDto(Integer id, String title, String preview, String date) {
+		this.id = id;
 		this.title = title;
 		this.body = preview;
 		this.date = date;
 	}
 	//response constructor for /post/[id] request
 	public PostDto(Post post) {
+		id = post.getId();
 		title = post.getTitle();
 		body = post.getPostDetail().toString();
 		date = post.getDate();
 		for (Comment comment : post.getComments()) {
 			comments.add(new CommentDto(comment));
 		}
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getPreview() {
