@@ -4,13 +4,13 @@
 	<title></title>
 </head>
 <body>
-	<div class="col-sm-2" th:fragment="logged_in">
+	<div class="col-sm-2" th:fragment="admin">
 		<ul class="nav bs-sidenav">
 			<li class="btn"><a class="text-left" href="/manage">Manage Posts</a></li>
 			<li class="btn"><a class="text-left" href="/create">Create Post</a></li>
-			<li class="btn"><a class="text-left" href="/list">Search Posts</a></li>
 		</ul>
 	</div>
+
 	<div class="col-sm-2" th:fragment="anonymous">
 		<h4>Log in</h4>
 		<form th:action="@{/check}" method="POST">

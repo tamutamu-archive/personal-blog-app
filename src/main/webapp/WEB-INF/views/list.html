@@ -11,14 +11,13 @@
 		<div class="navbar navbar-inverse" th:replace="top_navbar :: ${user} ?  logged_in : anonymous">
 		</div>
 		<div class="row">
-			<div class="col-sm-2" th:replace="left_sidebar :: ${user} ? logged_in : anonymous">
-	
+			<div class="col-sm-2" th:replace="left_sidebar :: ${user} ?  admin : anonymous">
 			</div>
 			<div class="col-sm-10">
 				<div th:each="post : ${posts}">
 					<h3 class="text-uppercase" th:text="${post.title}">Post Title</h3>
 					<span th:text="${post.getDate()}" class="text-muted small"></span>
-					<p class="text-justify" th:text="${post.getPreview()}">
+					<p class="text-justify" th:text="${post.getPreview() + '...'}">
 						Post Preview
 					</p>
 					<a class="btn btn-primary" th:href="${'/read/' + post.getId()}">Read further</a>

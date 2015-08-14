@@ -48,3 +48,8 @@ CREATE TABLE Users_Roles (
 	constraint user_fk foreign key(user_id) references Users(id),
 	constraint role_fk foreign key(role_id) references Roles(id)
 ) ENGINE=InnoDB;
+
+insert into Roles (role) values("ROLE_ADMIN");
+insert into Roles (role) values("ROLE_USER");
+insert into Users (first_name, last_name, email, password) values("ADMIN FIRST NAME", "ADMIN LAST NAME", "admin@mail.org", "secret");
+insert into Users_Roles (user_id, role_id) values(ADMIN_USER_ID, ROLE_ADMIN_ID);

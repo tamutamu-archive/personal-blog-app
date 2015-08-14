@@ -1,13 +1,17 @@
 package org.example.spb.controller;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.example.spb.domain.Role;
 import org.example.spb.dto.CommentDto;
 import org.example.spb.dto.PostDto;
 import org.example.spb.service.PostManagementService;
 import org.example.spb.service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -36,6 +40,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String manage(Model model) {
+		model.addAttribute("posts", postSevice.getRange(0));
 		return "/manage";
 	}
 	
