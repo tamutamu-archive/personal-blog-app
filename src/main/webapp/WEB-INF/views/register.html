@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>SIMPLE PERSONAL BLOG APPLICATION</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/custom_styles.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/lib/bootstrap.css"/>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse" th:replace="top_navbar :: logged_in">
+		</div>
+		<div class="row">
+			<div class="col-sm-2" th:replace="left_sidebar :: logged_in">
+			</div>
+			<form class="col-sm-10">
+				<p>First Name:</p>
+				<input type="text" />
+				
+				<p>Last Name:</p>
+				<input type="text" />
+				
+				<p>Email (is used as login):</p>
+				<input type="text" />
+				
+				<p>Password:</p>
+				<input type="password" />
+				
+				<p>Confirm password:</p>
+				<input type="password" />
+				<p class="reg_button">
+					<input class="btn btn-primary" type="submit" value="Register"/>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

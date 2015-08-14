@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.example.spb.dao.PostDAO;
 import org.example.spb.dao.PostDetailDAO;
+import org.example.spb.dao.UserDAO;
 import org.example.spb.domain.Post;
 import org.example.spb.domain.PostDetail;
+import org.example.spb.domain.Role;
 import org.example.spb.domain.User;
 import org.example.spb.dto.CommentDto;
 import org.example.spb.dto.PostDto;
@@ -26,6 +28,9 @@ public class DaoTest extends AbstractDaoTest{
 	
 	@Autowired
 	private PostDetailDAO postDetailDAO;
+	
+	@Autowired
+	private UserDAO userDao;
 	
 	@Autowired
 	private PostManagementService postService;
@@ -80,9 +85,17 @@ public class DaoTest extends AbstractDaoTest{
 			}
 			
 			//create a comment
-			CommentDto commentDto = new CommentDto();
-			commentDto.setComment(readFile("src/test/resources/SampleComment.txt"));
+			//CommentDto commentDto = new CommentDto();
+			//commentDto.setComment(readFile("src/test/resources/SampleComment.txt"));
 			//postService.addComment(commentDto, userId, id2);
+			User user = userDao.getByEmail("jack@mail.org");
+			print(user.getFirstName());
+			print(user.getLastName());
+			print(user.getEmail());
+			for (Role role : user.getRoles()) {
+				print(role.getRole());
+			}
+			
 			
 		} catch (IOException e) {
 			print(e.getMessage());

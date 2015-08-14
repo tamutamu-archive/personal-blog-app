@@ -1,10 +1,17 @@
 package org.example.spb.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.example.spb.dao.RoleDAO;
 import org.example.spb.dao.UserDAO;
+import org.example.spb.domain.Role;
+import org.example.spb.domain.User;
 import org.example.spb.dto.UserDto;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,7 +53,15 @@ public class UserManagementServiceImpl extends ManagementService<UserDto, Intege
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Role> roles = new HashSet<>();
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		
+		User user = mainDao.getByEmail(username);
+		
+		roles = user.getRoles();
+		for (Role role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role.getRole()));
+		}
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 	}
 }

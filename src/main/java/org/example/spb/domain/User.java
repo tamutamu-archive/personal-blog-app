@@ -1,6 +1,5 @@
 package org.example.spb.domain;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,8 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "USERS")
@@ -29,11 +26,7 @@ public class User extends AbstractEntity {
 	private String email;
 	
 	@Column
-	private boolean enabled;
-	
-	@Column(name = "registration_date", columnDefinition = "DATETIME")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date registrationDate;
+	private String password;
 	
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> comments = new HashSet<>();
@@ -83,20 +76,12 @@ public class User extends AbstractEntity {
 		this.email = email;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Set<Comment> getComments() {

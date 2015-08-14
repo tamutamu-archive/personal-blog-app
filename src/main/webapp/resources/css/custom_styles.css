@@ -1,0 +1,19 @@
+textarea {
+	resize: none!important;
+}
+
+.comments {
+	margin-top:50px;
+}
+
+.comment {
+	margin-top:30px;
+}
+
+.comment_form {
+	margin-top:50px;
+}
+
+.reg_button {
+	margin-top:30px;
+}

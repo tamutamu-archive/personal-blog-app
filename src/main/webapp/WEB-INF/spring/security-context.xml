@@ -3,10 +3,41 @@ xmlns:beans="http://www.springframework.org/schema/beans"
 xmlns:p="http://www.springframework.org/schema/p"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 		
+	<http use-expressions="true">
+		<!-- public URLs -->
+		<intercept-url pattern="/" access="permitAll"/>
+		<intercept-url pattern="/list" access="permitAll"/>
+		<intercept-url pattern="/read**" access="permitAll"/>
+		
+		<!-- Administration URLs -->
+		<intercept-url pattern="/manage**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/create**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/update**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/delete**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/delete_comment**" access="hasRole('ROLE_ADMIN')"/>
+		
+		<!-- User URLs -->
+		<intercept-url pattern="/comment**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		
+		<form-login login-page="/list"
+			login-processing-url="/check"
+			default-target-url="/"
+			authentication-failure-url="/fail"
+			username-parameter="username"
+			password-parameter="password"/>
+		<logout logout-url="/logout"
+			logout-success-url=""/>
+		<csrf/>
+	</http>
 	
+	<beans:bean id="userService" class="org.example.spb.service.UserManagementServiceImpl"/>
+	
+	<authentication-manager>
+		<authentication-provider user-service-ref="userService"/>
+	</authentication-manager>
 		
 </beans:beans>

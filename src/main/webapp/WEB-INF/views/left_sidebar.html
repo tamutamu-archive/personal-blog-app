@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="col-sm-2" th:fragment="logged_in">
+		<ul class="nav bs-sidenav">
+			<li class="btn"><a class="text-left" href="/manage">Manage Posts</a></li>
+			<li class="btn"><a class="text-left" href="/create">Create Post</a></li>
+			<li class="btn"><a class="text-left" href="/list">Search Posts</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-2" th:fragment="anonymous">
+		<h4>Log in</h4>
+		<form th:action="@{/check}" method="POST">
+			<fieldset>
+				<p>
+					Username:
+				</p>
+				<input type="text" th:name="username"/>
+				
+				<p>
+					Password:
+				</p>
+				<input type="password" th:name="password"/>
+				
+				<p class="reg_button">
+					<input class="btn btn-primary" type="submit" th:value="@{Log in}"/>
+				</p>
+				
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
