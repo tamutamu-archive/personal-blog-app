@@ -22,7 +22,8 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read() {
+	public String read(Model model, @AuthenticationPrincipal User user) {
+		model.addAttribute("user", user);
 		return "read";
 	}
 	

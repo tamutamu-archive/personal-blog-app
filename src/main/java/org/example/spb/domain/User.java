@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.example.spb.dto.UserDto;
+
 @Entity
 @Table(name = "USERS")
 public class User extends AbstractEntity {
@@ -50,6 +52,14 @@ public class User extends AbstractEntity {
 	}
 	
 	public User() {}
+	
+	public User(UserDto dto, String role) {
+		firstName = dto.getFirstName();
+		lastName = dto.getLastName();
+		email = dto.getEmail();
+		password = dto.getPassword();
+		addRole(new Role(role));
+	}
 	
 
 	public String getFirstName() {

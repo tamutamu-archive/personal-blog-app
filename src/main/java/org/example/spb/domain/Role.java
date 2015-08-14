@@ -8,10 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ROLES")
 public class Role extends AbstractEntity {
+	@Transient
+	public static final String ADMIN = "ROLE_ADMIN";
+	
+	@Transient
+	public static final String USER = "ROLE_USER";
+	
 	@Column
 	private String role;
 	
@@ -19,6 +26,10 @@ public class Role extends AbstractEntity {
 	private Set<User> users = new HashSet<>();
 	
 	public Role() {}
+	
+	public Role(String role) {
+		this.role = role;
+	}
 
 	public String getRole() {
 		return role;

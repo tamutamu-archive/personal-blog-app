@@ -12,6 +12,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/list" access="permitAll"/>
 		<intercept-url pattern="/read**" access="permitAll"/>
+		<intercept-url pattern="/register" access="permitAll"/>
 		
 		<!-- Administration URLs -->
 		<intercept-url pattern="/manage**" access="hasRole('ROLE_ADMIN')"/>

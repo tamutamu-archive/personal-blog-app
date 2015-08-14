@@ -17,3 +17,7 @@ textarea {
 .reg_button {
 	margin-top:30px;
 }
+
+.input_error {
+	border-color:#ff0000!important;
+}

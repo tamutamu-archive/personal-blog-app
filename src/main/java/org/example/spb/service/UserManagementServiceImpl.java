@@ -56,12 +56,30 @@ public class UserManagementServiceImpl extends ManagementService<UserDto, Intege
 		Collection<Role> roles = new HashSet<>();
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		
-		User user = mainDao.getByEmail(username);
+		User user = mainDao.getByEmail(username).get(0);
 		
 		roles = user.getRoles();
 		for (Role role : roles) {
 			authorities.add(new SimpleGrantedAuthority(role.getRole()));
 		}
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+	}
+
+	@Override
+	public boolean createAccount(UserDto dto) {
+		if (validateIfExists(dto.getEmail())) {
+			return false;
+		} else {
+			mainDao.create(new User(dto, Role.USER));
+			return true;
+		}
+	}
+	
+	private boolean validateIfExists(String email) {
+		if (mainDao.getByEmail(email).size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

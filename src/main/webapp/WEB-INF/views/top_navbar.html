@@ -7,11 +7,14 @@
 	<div class="navbar navbar-inverse" th:fragment="logged_in">
 		<div class="container-fluid">
 			<div class="navbar-header">
-     			<a class="navbar-brand" href="/logout">SIMPLE PERSONAL BLOG APPLICATION</a>
+     			<a class="navbar-brand" href="/list">SIMPLE PERSONAL BLOG APPLICATION</a>
    			</div>
    			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="#">Log out</a>
+					<form th:action="@{/logout}" method="POST">
+						<input type="submit" th:value="@{Log out}"/>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					</form>
 				</li>
 			</ul>
 		</div>
@@ -20,11 +23,11 @@
 	<div class="navbar navbar-inverse" th:fragment="anonymous">
 		<div class="container-fluid">
 			<div class="navbar-header">
-     			<a class="navbar-brand" href="/register">SIMPLE PERSONAL BLOG APPLICATION</a>
+     			<a class="navbar-brand" href="/list">SIMPLE PERSONAL BLOG APPLICATION</a>
    			</div>
    			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="#">Registration</a>
+					<a href="/register">Registration</a>
 				</li>
 			</ul>
 		</div>

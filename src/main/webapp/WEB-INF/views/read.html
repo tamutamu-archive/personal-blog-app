@@ -8,10 +8,10 @@
 </head>
 <body>
 	<div class="container">
-		<div class="navbar navbar-inverse" th:replace="top_navbar :: logged_in">
+		<div class="navbar navbar-inverse" th:replace="top_navbar :: ${user} ?  logged_in : anonymous">
 		</div>
 		<div class="row">
-			<div class="col-sm-2" th:replace="left_sidebar :: logged_in">
+			<div class="col-sm-2" th:replace="left_sidebar :: ${user} ? logged_in : anonymous">
 				
 			</div>
 			<div class="col-sm-10">
