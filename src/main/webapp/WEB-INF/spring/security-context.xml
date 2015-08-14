@@ -22,7 +22,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<intercept-url pattern="/delete_comment**" access="hasRole('ROLE_ADMIN')"/>
 		
 		<!-- User URLs -->
-		<intercept-url pattern="/comment**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<intercept-url pattern="/comment**" access="hasRole('ROLE_USER')"/>
 		
 		<form-login login-page="/list"
 			login-processing-url="/check"

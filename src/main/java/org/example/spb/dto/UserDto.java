@@ -2,9 +2,11 @@ package org.example.spb.dto;
 
 import javax.validation.constraints.Size;
 
+import org.example.spb.validation.PasswordMatch;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@PasswordMatch
 public class UserDto {
 	@Size(min = 2, max = 40)
 	@NotEmpty
@@ -15,6 +17,7 @@ public class UserDto {
 	private String lastName;
 	
 	@Email
+	@NotEmpty
 	private String email;
 	
 	@Size(min = 8, max = 50)

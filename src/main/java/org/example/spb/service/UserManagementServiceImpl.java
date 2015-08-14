@@ -66,6 +66,11 @@ public class UserManagementServiceImpl extends ManagementService<UserDto, Intege
 	}
 
 	@Override
+	public Integer getIdByEmail(String email) {
+		return mainDao.getByEmail(email).get(0).getId();
+	}
+
+	@Override
 	public boolean createAccount(UserDto dto) {
 		if (validateIfExists(dto.getEmail())) {
 			return false;

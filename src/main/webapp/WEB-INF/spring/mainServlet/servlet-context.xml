@@ -28,5 +28,5 @@
 		p:templateEngine-ref="templateEngine"/>
 	
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="org.example.spb" />
+	<context:component-scan base-package="org.example.spb.controller" />
 </beans:beans>

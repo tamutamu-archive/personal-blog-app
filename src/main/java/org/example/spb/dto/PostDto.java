@@ -13,7 +13,7 @@ public class PostDto {
 	
 	private Integer id;
 	
-	@Size(max = 50)
+	@Size(min = 1, max = 50)
 	@NotEmpty
 	private String title;
 	

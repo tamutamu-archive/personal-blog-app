@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.example.spb.dao.CommentDAO;
 import org.example.spb.dao.PostDAO;
 import org.example.spb.dao.UserDAO;
