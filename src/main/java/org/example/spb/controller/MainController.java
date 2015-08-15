@@ -5,13 +5,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.example.spb.domain.Role;
 import org.example.spb.dto.CommentDto;
 import org.example.spb.dto.PostDto;
 import org.example.spb.service.PostManagementService;
 import org.example.spb.service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -60,13 +58,48 @@ public class MainController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createPost(@ModelAttribute ("post") @Valid PostDto dto, BindingResult result, Model model) {
+		String url = "redirect:/";
 		if (result.hasErrors()) {
 			model.addAttribute("post", dto);
-			return "create";
+			url = "create";
 		} else {
 			postSevice.create(dto);
-			return "manage";
+			url = "manage";
 		}
+		return url;
+	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public String updatePage(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("post", postSevice.getOne(id));
+		return "update";
+	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+	public String updatePost(@ModelAttribute("post") @Valid PostDto dto,
+			BindingResult result, Model model, @PathVariable("id") Integer id) {
+		String url = "redirect:/";
+		if (result.hasErrors()) {
+			model.addAttribute("post", dto);
+			url += "update/" + id; 
+		} else {
+			postSevice.update(dto);
+			url += "read/" + id;
+		}
+		return url;
+	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deleteConfirmPage(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("postTitle", postSevice.getOne(id).getTitle());
+		model.addAttribute("id", id);
+		return "delete";
+	}
+	
+	@RequestMapping(value = "/delete_confirm/{id}", method = RequestMethod.GET)
+	public String deletePost(@PathVariable("id") Integer id) {
+		postSevice.delete(id);
+		return "redirect:/manage";
 	}
 	
 	@RequestMapping(value = "/comment/{id}", method = RequestMethod.POST)
@@ -86,5 +119,11 @@ public class MainController {
 		}
 		
 		return url;
+	}
+	
+	@RequestMapping(value = "/comment_delete/{postId}/{commentId}", method = RequestMethod.GET)
+	public String deleteComment(@PathVariable("postId") Integer postId, @PathVariable("commentId") Integer commentId) {
+		postSevice.deleteComment(commentId);
+		return "redirect:/update/" + postId;
 	}
 }

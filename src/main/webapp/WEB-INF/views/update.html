@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Simple Blogging Engine</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="/resources/css/custom_styles.css"/>
+	<link rel="stylesheet" type="text/css" href="/resources/lib/bootstrap.css"/>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse" th:replace="top_navbar :: logged_in">
+		</div>
+		<div class="row">
+			<div class="col-sm-2" th:replace="left_sidebar :: admin">
+				
+			</div>
+			<div class="col-sm-10">
+				<form th:action="${'/update/' + post.getId()}" method="POST" th:object="${post}">
+					<h4>Post title:</h4>
+					<input type="text" th:field="*{title}" th:value="*{title}" th:errorclass="input_error" placeholder="Enter title"/>
+					<h4>Post body:</h4>
+					<textarea rows="20" cols="100" th:field="*{body}" th:value="*{body}"></textarea>
+					<p>
+						<input class="btn btn-primary" type="submit" value="Save"/>
+					</p>
+					<h5 class="comments"><strong>Comments:</strong></h5>
+					<div th:each="comment : ${post.getComments()}">
+					<p class="small comment" th:text="${comment.getComment()}">
+						Comment Text
+					</p>
+					<a type="" class="btn btn-primary btn-xs" 
+						th:href="${'/comment_delete/' + post.getId() + '/' + comment.getId()}">Delete comment</a>
+					<h6><em th:text="${comment.getAuthor()}">Author Name</em></h6>
+					<h6 th:text="${comment.getDate()}" class="text-muted small"></h6>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
